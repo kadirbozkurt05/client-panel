@@ -39,7 +39,7 @@ export default function StudentDetailsOriginal() {
 
   const fetchStudentData = async () => {
     try {    
-      const { data } = await axios.get('/api/users/students', {
+      const { data } = await axios.get(import.meta.env.VITE_API_URL+'/api/users/students', {
         params: {
           id
         }
@@ -58,7 +58,7 @@ export default function StudentDetailsOriginal() {
         params.endDate = dateRange.endDate
       }
       if(student) {
-        const { data } = await axios.get('/api/stats/student', {
+        const { data } = await axios.get(import.meta.env.VITE_API_URL+'/api/stats/student', {
           params: {
             id: student?._id,
             ...params
@@ -92,7 +92,7 @@ export default function StudentDetailsOriginal() {
       if (paymentFilter) {
         params.odeme_durumu = paymentFilter;
       }
-      const { data } = await axios.get(`/api/lessons/student/${id}`, { params });
+      const { data } = await axios.get(import.meta.env.VITE_API_URL+`/api/lessons/student/${id}`, { params });
       const pastLessons = data.data.lessons.filter(
         (lesson) => new Date(lesson.tarih) <= new Date()
       );
@@ -106,7 +106,7 @@ export default function StudentDetailsOriginal() {
 
   const fetchFutureLessons = async () => {
     try {
-      const { data } = await axios.get(`/api/lessons/student/${id}`, {
+      const { data } = await axios.get(import.meta.env.VITE_API_URL+`/api/lessons/student/${id}`, {
         params: { isFuture: true }
       })
       setFutureLessons(data.data.lessons)
@@ -117,7 +117,7 @@ export default function StudentDetailsOriginal() {
 
   const handleDeleteLesson = async () => {
     try {
-      await axios.delete(`/api/lessons/${selectedLesson._id}`)
+      await axios.delete(import.meta.env.VITE_API_URL+`/api/lessons/${selectedLesson._id}`)
       setShowDeleteConfirmation(false)
       setSelectedLesson(null)
       fetchLessons()
@@ -130,7 +130,7 @@ export default function StudentDetailsOriginal() {
 
   const handleDeleteStudent = async () => {
     try {
-      await axios.delete(`/api/users/${id}`);
+      await axios.delete(import.meta.env.VITE_API_URL+`/api/users/${id}`);
       toast.success('Öğrenci başarıyla silindi');
       navigate('/');
     } catch (error) {

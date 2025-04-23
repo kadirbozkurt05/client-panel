@@ -32,7 +32,7 @@ export default function Dashboard() {
         params.startDate = dateRange.startDate
         params.endDate = dateRange.endDate
       }
-      const { data } = await axios.get('/api/stats', { params })
+      const { data } = await axios.get(import.meta.env.VITE_API_URL+'/api/stats', { params })
       setStats(data.data.stats)
     } catch (error) {
       toast.error('İstatistikler alınırken bir hata oluştu')
@@ -41,7 +41,7 @@ export default function Dashboard() {
 
   const fetchStudents = async () => {
     try {
-      const { data } = await axios.get('/api/users/students')
+      const { data } = await axios.get(import.meta.env.VITE_API_URL+'/api/users/students')
       const studentsWithStats = await Promise.all(
         data.data.students.map(async (student) => {
           const params = {}          
@@ -50,7 +50,7 @@ export default function Dashboard() {
             params.endDate = dateRange.endDate
           }
           
-          const statsResponse = await axios.get('/api/stats/student', {
+          const statsResponse = await axios.get(import.meta.env.VITE_API_URL+'/api/stats/student', {
             params: {
               id: student._id,
               ...params

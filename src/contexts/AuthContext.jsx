@@ -21,7 +21,7 @@ export function AuthProvider({ children }) {
 
   const fetchUser = async () => {
     try {
-      const { data } = await axios.get('/api/auth/me')
+      const { data } = await axios.get(import.meta.env.VITE_API_URL+'/api/auth/me')
       setUser(data.data.user)
     } catch (error) {
       localStorage.removeItem('token')
@@ -32,7 +32,8 @@ export function AuthProvider({ children }) {
   }
 
   const login = async (identifier, password) => {
-    const { data } = await axios.post('/api/auth/login', { identifier, password })
+    const { data } = await axios.post(import.meta.env.VITE_API_URL+'/api/auth/login', { identifier, password })
+    console.log(import.meta.env.VITE_API_URL+'/api/auth/login')
     localStorage.setItem('token', data.token)
     axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`
     setUser(data.data.user)
@@ -48,7 +49,7 @@ export function AuthProvider({ children }) {
   }
 
   const updatePassword = async (currentPassword, newPassword) => {
-    const { data } = await axios.patch('/api/users/update-password', {
+    const { data } = await axios.patch(import.meta.env.VITE_API_URL+'/api/users/update-password', {
       currentPassword,
       newPassword,
       confirmPassword: newPassword

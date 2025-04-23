@@ -22,7 +22,7 @@ const Settings = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.patch(`/api/users/update-password` , formData);
+      const response = await axios.patch(import.meta.env.VITE_API_URL+`/api/users/update-password` , formData);
 
       toast.success('Şifre başarıyla değiştirildi');
 

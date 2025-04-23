@@ -22,7 +22,7 @@ const AddLessonModal = ({ open, onClose, studentId, onSuccess }) => {
     try {
       const token = localStorage.getItem('token'); // Adjust based on your auth setup
       await axios.post(
-        '/api/lessons',
+        import.meta.env.VITE_API_URL+'/api/lessons',
         {
           ogrenci_id: studentId,
           tarih: new Date(formData.tarih).toISOString(),

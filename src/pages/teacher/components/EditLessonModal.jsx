@@ -32,7 +32,7 @@ const EditLessonModal = ({ open, onClose, lesson, onSuccess }) => {
     setLoading(true);
 
     try {
-      await axios.patch(`/api/lessons/${lesson._id}`, {
+      await axios.patch(import.meta.env.VITE_API_URL+`/api/lessons/${lesson._id}`, {
         tarih: new Date(formData.tarih).toISOString(),
         saat: formData.saat,
         ucret: parseFloat(formData.ucret),
